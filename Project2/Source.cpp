@@ -2,120 +2,129 @@
 #include <string>
 using namespace std;
 template<typename T>
-class List
+class MyList
 {
 public:
-	List()
-	{
-		this->list_length = 0;
-		first_element_ = this;
-	}
-	List(const T& value)
-	{
-		this->value_ = value;
-		this->last_element_ = this;
-		this->first_element_ = this;
-		list_length = 1;
-	}
-	void list_push_back(const T& value)
-	{
-		if (list_length == 0)
-		{
-			this->value_ = value;
-			this->last_element_ = this;
-			this->first_element_ = this;
-		}
-		else
-		{
-			this->prev_element_ = this->last_element_;
-			this->last_element_->next_ = new List(value);
-			this->last_element_ = this->last_element_->next_;
-		}
-		list_length++;
-	}
-	void list_pop_back()
-	{
-		if (list_length == 0)
-		{
-			throw string("exception no element");
-		}
-		if (list_length == 1)
-		{
-			this->last_element_ = this;
-			this->first_element_ = this;
-			delete last_element_;
-			list_length--;
-			return;
-		}
-		delete last_element_;
-		last_element_ = prev_element_;
-		list_length--;
-	}
-	void list_push_front(const T& value)
-	{
-		List* new_ = new List(value);
-		list_length++;
-		if (list_length == 1)
-		{
-			new_->next_ = nullptr;
-			first_element_ = last_element_ = new_;
-			return;
-		}
-		new_->next_ = first_element_;
-		first_element_ = new_;
-	}
-	T& get_value()
-	{
-		if (list_length > 0)
-			return this->value_;
-		throw   string("exception no access");
-	}
-	List& get_next()
-	{
-		return *(this->next_);
-	}
-	List& operator=(const List& list)
-	{
-		this->value_ = list.value;
-		this->next_ = list.next_;
-		this->first_element_ = list.first_element_;
-		return *this;
-	}
-	int get_list_length()
-	{
-		return this->list_length;
-	}
-	T& operator[](int index)
-	{
-		return func(first_element_, 0, index);
-	}
-	T& func(List<T>* list, int i, int index)
-	{
-		if (!list)
-			throw string("exception no index access");
-		if (i > index || index >= this->list_length)
-			throw string("exception no index access");
-		if (i == index)
-			return list->get_value();
-		func(list->next_, ++i, index);
-
-	}
+	MyList();
+	MyList(const T& value);
+	void list_push_back(const T& value);
+	void list_pop_back();
+	void list_push_front(const T& value);
+	T& get_value();
+	MyList& get_next();
+	MyList& operator=(const MyList& list);
+	int get_list_length();
+	T& operator[](int index);
+	T& func(MyList<T>* list, int i, int index);
 private:
 	T value_; //value of type T
-	List* last_element_; //pointer to the last element
-	List* prev_element_; //poiter to element before the last one
-	List* next_; //pointer to the next element of the List
-	List* first_element_; //pointer to first element of the List
-	int list_length; // length of the List
+	MyList* last_element_; //pointer to the last element
+	MyList* prev_element_; //poiter to element before the last one
+	MyList* next_; //pointer to the next element of the MyList
+	MyList* first_element_; //pointer to first element of the MyList
+	int list_length; // length of the MyList
 };
 
+template<typename T> MyList<T>::MyList()
+{
+	this->list_length = 0;
+	first_element_ = this;
+}
+template<typename T> MyList<T>::MyList(const T& value)
+{
+	this->value_ = value;
+	this->last_element_ = this;
+	this->first_element_ = this;
+	list_length = 1;
+}
+template<typename T> void MyList<T>::list_push_back(const T& value)
+{
+	if (list_length == 0)
+	{
+		value_ = value;
+		last_element_ = this;
+		first_element_ = this;
+	}
+	else
+	{
+		prev_element_ = last_element_;
+		last_element_->next_ = new MyList(value);
+		last_element_ = last_element_->next_;
+	}
+	list_length++;
+}
+template<typename T> void MyList<T>::list_pop_back()
+{
+	if (list_length == 0)
+	{
+		throw string("exception no element");
+	}
+	if (list_length == 1)
+	{
+		last_element_ = this;
+		first_element_ = this;
+		delete last_element_;
+		list_length--;
+		return;
+	}
+	delete last_element_;
+	last_element_ = prev_element_;
+	list_length--;
+}
+template<typename T> void MyList<T>::list_push_front(const T& value)
+{
+	MyList* new_ = new MyList(value);
+	list_length++;
+	if (list_length == 1)
+	{
+		first_element_ = new MyList(value);
+		last_element_ = new MyList(value);
+		return;
+	}
+	new_->next_ = first_element_;
+	first_element_ = new_;
+}
+template<typename T> T& MyList<T>::get_value()
+{
+	if (list_length > 0)
+		return value_;
+	throw   string("exception no access");
+}
+template<typename T> MyList<T>& MyList<T>::get_next()
+{
+	return *(next_);
+}
+template<typename T> MyList<T>& MyList<T>::operator=(const MyList<T>& list)
+{
+	value_ = list.value;
+	next_ = list.next_;
+	first_element_ = list.first_element_;
+	return *this;
+}
+template<typename T> int MyList<T>::get_list_length()
+{
+	return list_length;
+}
+template<typename T> T& MyList<T>::operator[](int index)
+{
+	return func(first_element_, 0, index);
+}
+template<typename T> T& MyList<T>::func(MyList<T>* list, int i, int index)
+{
+	if (!list)
+		throw string("exception no index access");
+	if (i > index || index >= list_length)
+		throw string("exception no index access");
+	if (i == index)
+		return list->get_value();
+	func(list->next_, ++i, index);
 
-
+}
 int main()
 {
 	try
 	{
-		List<int> list;
+		MyList<int> list;
 		int N = 0;
 		cin >> N;
 		for (int i = 0; i < N; i++)
