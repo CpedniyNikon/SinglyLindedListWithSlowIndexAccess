@@ -41,11 +41,9 @@ void MyList<int>::list_pop_back()
 	{
 		last_element_ = this;
 		first_element_ = this;
-		last_element_ = nullptr;
 		list_length--;
 		return;
 	}
-	last_element_ = nullptr;
 	last_element_ = prev_element_;
 	list_length--;
 }
