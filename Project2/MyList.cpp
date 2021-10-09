@@ -8,9 +8,10 @@ MyList<int>::MyList()
 template<>
 MyList<int>::MyList(const int& value)
 {
-	this->value_ = value;
-	this->last_element_ = this;
-	this->first_element_ = this;
+	value_ = value;
+	last_element_ = this;
+	first_element_ = this;
+	next_ = nullptr;
 	list_length = 1;
 }
 template<>
