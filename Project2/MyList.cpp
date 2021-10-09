@@ -39,8 +39,8 @@ void MyList<int>::list_pop_back()
 	}
 	if (list_length == 1)
 	{
-		last_element_ = this;
-		first_element_ = this;
+		last_element_ = nullptr;
+		first_element_ = nullptr;
 		list_length--;
 		return;
 	}
