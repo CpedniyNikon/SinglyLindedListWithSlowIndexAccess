@@ -2,7 +2,6 @@
 #include <iostream>
 #include <string>
 using namespace std;
-
 template<typename T> MyList<T>::MyList()
 {
 	this->list_length = 0;
@@ -34,14 +33,13 @@ template<typename T> void MyList<T>::list_pop_back()
 {
 	if (list_length == 0)
 	{
-
 		throw std::string("exception no element");
 	}
 	if (list_length == 1)
 	{
 		last_element_ = this;
 		first_element_ = this;
-		delete last_element_;
+		last_element_ = nullptr;
 		list_length--;
 		return;
 	}
@@ -98,33 +96,16 @@ template<typename T> T& MyList<T>::func(MyList<T>* list, int i, int index)
 	func(list->next_, ++i, index);
 
 }
-
 int main()
 {
 	try
 	{
 		MyList<int> list;
-		int N = 0;
-		cin >> N;
-		for (int i = 0; i < N; i++)
-		{
-			int value = 0;
-			cin >> value;
-			list.list_push_back(value);
-		}
 		list.list_pop_back();
-		list.list_pop_back();
-		list.list_push_front(-1);
-		list.list_push_front(-2);
-		for (int i = 0; i < list.get_list_length(); i++)
-		{
-			cout << list[i] << " ";
-		}
 	}
 	catch (string exception)
 	{
-		if (exception == "exception no access" || exception == "exception no index access")
-			cout << exception << '\n';
+		cout << exception << '\n';
 	}
 	return 0;
 }
