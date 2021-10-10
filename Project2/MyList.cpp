@@ -1,5 +1,6 @@
 #include "MyList.h"
 #include <string>
+//There are only int-classes functions so far.
 template<>
 MyList<int>::MyList()
 {
@@ -15,7 +16,7 @@ MyList<int>::MyList(const int& value)
 	list_length = 1;
 }
 template<>
-void MyList<int>::list_push_back(const int& value)
+void MyList<int>::push_back(const int& value)
 {
 	if (list_length == 0)
 	{
@@ -32,7 +33,7 @@ void MyList<int>::list_push_back(const int& value)
 	list_length++;
 }
 template<>
-void MyList<int>::list_pop_back()
+void MyList<int>::pop_back()
 {
 	if (list_length == 0)
 	{
@@ -49,7 +50,7 @@ void MyList<int>::list_pop_back()
 	list_length--;
 }
 template<>
-void MyList<int>::list_push_front(const int& value)
+void MyList<int>::push_front(const int& value)
 {
 	MyList* new_ = new MyList(value);
 	list_length++;
@@ -81,7 +82,7 @@ MyList<int>& MyList<int>::operator=(const MyList<int>& list)
 	return *this;
 }
 template<>
-int MyList<int>::get_list_length()
+int MyList<int>::size()
 {
 	return list_length;
 }
