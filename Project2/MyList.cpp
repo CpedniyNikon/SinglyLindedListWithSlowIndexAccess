@@ -1,5 +1,6 @@
 #include "MyList.h"
 #include <string>
+#include <iostream>
 //There are only int-classes functions so far.
 template<>
 MyList<int>::MyList()
@@ -64,22 +65,35 @@ void MyList<int>::push_front(const int& value)
 	first_element_ = new_;
 }
 template<>
-int& MyList<int>::get_value()
+MyList<int>* MyList<int>::begin()
 {
-	if (list_length > 0)
-		return value_;
-	throw std::string("exception no access");
+	return this->first_element_;
 }
 template<>
-MyList<int>& MyList<int>::get_next()
+MyList<int>* MyList<int>::end()
 {
-	return *(next_);
+	return this->last_element_->next_;
 }
 template<>
 MyList<int>& MyList<int>::operator=(const MyList<int>& list)
 {
 	value_ = list.value_;
 	return *this;
+}
+template<>
+MyList<int>* MyList<int>::get_next()
+{
+	return this->next_;
+}
+template<>
+int& MyList<int>::get_value()
+{
+	return this->value_;
+}
+template<>
+void MyList<int>::insert(int pos, const int value)
+{
+	func1(first_element_, 0, pos, value);
 }
 template<>
 int MyList<int>::size()
@@ -101,4 +115,21 @@ int& MyList<int>::func(MyList<int>* list, int i, int index)
 	if (i == index)
 		return list->value_;
 	func(list->next_, ++i, index);
+}
+template<>
+void MyList<int>::func1(MyList<int>* list, int i, int index, int value)
+{
+	if (!list)
+		throw std::string("exception no index access");
+	if (i > index || index >= list_length)
+		throw std::string("exception no index access");
+	if (i == index - 1)
+	{
+		MyList* new_ = new MyList(value);
+		new_->next_ = list->next_;
+		list->next_ = new_;
+		list_length++;
+		return;
+	}
+	func1(list->next_, ++i, index, value);
 }

@@ -3,6 +3,12 @@
 #include <string>
 using namespace std;
 
+std::ostream& operator<<(std::ostream& fout, MyList<int> list)
+{
+	fout << list.get_value();
+	return fout;
+}
+
 int main()
 {
 	try
@@ -13,13 +19,10 @@ int main()
 		{
 			list.push_back(i);
 		}
-		list.pop_back();
-		list.pop_back();
-		list.push_front(-1);
-		list.push_front(-2);
-		for (int i = 0; i < list.size(); i++)
+		list.insert(3, 1);
+		for (auto it = list.begin(); it != list.end(); it = it->get_next())
 		{
-			cout << list[i] << endl;
+			cout << *it << " ";
 		}
 		//some code to show how it works in practice
 	}
