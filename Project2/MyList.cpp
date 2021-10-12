@@ -75,12 +75,6 @@ MyList<int>* MyList<int>::end()
 	return this->last_element_->next_;
 }
 template<>
-MyList<int>& MyList<int>::operator=(const MyList<int>& list)
-{
-	value_ = list.value_;
-	return *this;
-}
-template<>
 MyList<int>* MyList<int>::get_next()
 {
 	return this->next_;
@@ -93,7 +87,15 @@ int& MyList<int>::get_value()
 template<>
 void MyList<int>::insert(int pos, const int value)
 {
-	func1(first_element_, 0, pos, value);
+	if (pos == 0)
+	{
+		MyList<int>* new_ = new MyList(value);
+		new_->next_ = first_element_;
+		first_element_ = new_;
+		list_length++;
+		return;
+	}
+	 func1(first_element_, 0, pos, value);
 }
 template<>
 int MyList<int>::size()
@@ -115,6 +117,14 @@ int& MyList<int>::func(MyList<int>* list, int i, int index)
 	if (i == index)
 		return list->value_;
 	func(list->next_, ++i, index);
+}
+template<>
+void MyList<int>::pop_front()
+{
+	if (list_length == 0)
+		throw std::string("exception no element");
+	first_element_ = first_element_->next_;
+	list_length--;
 }
 template<>
 void MyList<int>::func1(MyList<int>* list, int i, int index, int value)

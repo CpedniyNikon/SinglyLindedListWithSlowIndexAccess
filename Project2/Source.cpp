@@ -19,7 +19,7 @@ int main()
 		{
 			list.push_back(i);
 		}
-		list.insert(3, 1);
+		list.insert(0, -1);
 		for (auto it = list.begin(); it != list.end(); it = it->get_next())
 		{
 			cout << *it << " ";

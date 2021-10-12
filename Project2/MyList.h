@@ -9,11 +9,13 @@ public:
 	MyList();
 	MyList(const T&);
 	void push_back(const T&);
-	void pop_back();
 	void push_front(const T&);
+	void pop_back();
+	void pop_front();
 	void insert(int, const int);
 	MyList& operator=(const MyList&);
 	//std::ostream& operator<<(std::ostream& fout, const MyList& list);
+
 	MyList* begin();
 	MyList* end();
 	int size();
