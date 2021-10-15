@@ -14,8 +14,6 @@ public:
 	void pop_front();
 	void insert(int, const int);
 	MyList& operator=(const MyList&);
-	//std::ostream& operator<<(std::ostream& fout, const MyList& list);
-
 	MyList* begin();
 	MyList* end();
 	int size();
